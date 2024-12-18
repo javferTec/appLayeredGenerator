@@ -1,7 +1,7 @@
 package local.javi.app.controller;
 
 import local.javi.app.domain.model.project.ProjectDetails;
-import local.javi.app.domain.manager.ProjectWorkflowManager;
+import local.javi.app.domain.manager.impl.ProjectWorkflowManagerImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class AppBuilderController {
 
     public static final String URL = "/api/v1/builder";
 
-    private final ProjectWorkflowManager projectWorkflowManager;
+    private final ProjectWorkflowManagerImpl projectWorkflowManagerImpl;
 
     @GetMapping()
     public ResponseEntity<String> index() {
@@ -29,7 +29,7 @@ public class AppBuilderController {
 
     @PostMapping()
     public ResponseEntity<Void> generateProject(@RequestBody ProjectDetails userInput) {
-        projectWorkflowManager.generateProject(userInput);
+        projectWorkflowManagerImpl.generateProject(userInput);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "project.generator.path",
+      "type": "java.lang.String",
+      "description": "Path where the projects are generated"
+    },
+    {
+      "name": "spring.initializr.url",
+      "type": "java.lang.String",
+      "description": "URL of the Spring Initializr service"
+    }
+  ]
+}

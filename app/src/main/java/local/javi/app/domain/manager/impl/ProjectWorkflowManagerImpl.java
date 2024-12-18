@@ -1,23 +1,31 @@
-package local.javi.app.domain.manager;
+package local.javi.app.domain.manager.impl;
 
 import local.javi.app.common.annotation.domain.Orchestrator;
+import local.javi.app.domain.manager.WorkflowManager;
 import local.javi.app.domain.model.project.ProjectDetails;
 import local.javi.app.domain.model.project.entity.Entity;
 import local.javi.app.domain.model.project.entity.method.Method;
 import local.javi.app.domain.model.project.entity.relation.Relation;
 import local.javi.app.domain.usecase.SpringProjectCreateUseCase;
+import local.javi.app.domain.validator.ProjectValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Orchestrator
 @RequiredArgsConstructor
-public class ProjectWorkflowManager {
+@Slf4j
+public class ProjectWorkflowManagerImpl implements WorkflowManager {
 
+    private final ProjectValidator projectValidator;
     private final SpringProjectCreateUseCase springProjectCreateUseCase;
 
+    @Override
     public void generateProject(ProjectDetails userInput) {
-        springProjectCreateUseCase.createProject(userInput.getSpringProjectConfig());
+        // Validar los datos introducidos por el usuario
+        projectValidator.validate(userInput);
 
-        //printData(userInput);
+        // Crear el proyecto de Spring
+        springProjectCreateUseCase.execute(userInput.getSpringProjectConfig());
     }
 
     private void printData(ProjectDetails userInput) {
